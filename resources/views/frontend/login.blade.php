@@ -3,7 +3,7 @@
         <h4>Login </h4>
         <div class="container">
             <div class="row"><div class="col-sm-12 login_page">
-                <div class="img_style"><img src="{{asset('/public/img/login_page_img.jpg')}}" alt="style-A-home"></div>
+                <div class="img_style"><img src="{{asset('/public/img/iStock-1364218248.jpg')}}" alt="style-A-home"></div>
                 <div class="login_form_details">
                     @if(session()->has('success'))<span class="success-msg" style="color: green;">{!!session('success')!!}</span>
                     @endif

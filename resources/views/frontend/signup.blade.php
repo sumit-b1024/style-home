@@ -2,7 +2,7 @@
 <section class="designer_cont project_main"><h4>Signup</h4>
 <div class="container">
     <div class="row"><div class="col-sm-12 login_page sign_up_page">
-        <div class="img_style"><img src="{{asset('/public/img/login_page_img.jpg')}}" alt="style-A-home"></div>
+        <div class="img_style"><img src="{{asset('/public/img/iStock-1364218248.jpg')}}" alt="style-A-home"></div>
         @if(session()->has('success'))<span class="success-msg" style="color: green;">{!!session('success')!!}</span>
         @endif
         <div class="login_form_details"><h3>Sign Up for Style a Home</h3>

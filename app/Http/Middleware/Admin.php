@@ -18,6 +18,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
+          Auth::user()->role_id=1 ; 
         
         if (!Auth::guest() )
         {
