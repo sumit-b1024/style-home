@@ -1,0 +1,13 @@
+@extends('layouts.frontend')
+
+@section('content')
+<section class="inner_banner company_banner">
+<img src="{{asset("public/uploads/banner/{$banner->path}")}}">
+	<div class="banner_top_area">
+	<div class="container"><div class="row"><div class="col-sm-12">
+	@include('layouts.head_menu')
+	</div></div></div></div>
+	<div class="inner_page_tittle"><div class="container"><div class="row"><div class="col-sm-12"><h2>Product Category</h2></div></div> </div></div>	
+</section>
+
+@endsection

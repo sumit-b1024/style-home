@@ -1,0 +1,102 @@
+@extends('layouts.designer')
+
+
+@section('content')
+<style>
+.card-title{
+	text-decoration: underline;
+}
+</style>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+.column {
+  float: left;
+  width: 25%;
+  padding: 0 10px;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* Style the counter cards */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 16px;
+  text-align: center;
+  background-color: #fff;
+}
+#img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: inherit;
+ 
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  width: 150px;
+}
+</style>
+ <div class="animated fadeIn">
+
+
+                <div class="row">
+                   
+
+                    </div><!--/.col-->
+
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header"><strong>{{__('Project Detail')}}</strong></div>
+							 <div class="col-lg-12">&nbsp;</div>
+                            <div class="card">
+							
+							
+							@if($project->room_picture)
+                              <?php
+                              $x = explode (",", $project->room_picture);
+                              ?>
+                              <img class="card-img-top" id="img" src="{{asset("public/uploads/{$x[0]}")}}" alt="Project">
+                             @endif
+							<div class="card-body aaa">
+							  <h4 class="card-title">{{$project->title}}</h4>
+							  <p class="card-text"><b>Designer: </b>{{$project->first_name}} {{$project->last_name}}</p>
+							  <p class="card-text"><b>Room Dimension: </b>{{$project->room_dimension}}</p>
+							  <p class="card-text"><b>Specific Area: </b>{{$project->specific_area}}</p>
+							  <p class="card-text"><b>Budget: </b>{{$project->budget}}</p>
+					        <p class="card-text"><b>Iteem Keep in Room: </b>{{$project->room_item_keep}}</p>
+					        <p class="card-text"><b>About Room: </b>{{$project->about_room}}</p>
+							</div>
+							</div>
+						</div>
+					</div>
+                        
+                        
+                    </div>
+                    
+                    </div>
+ @endsection

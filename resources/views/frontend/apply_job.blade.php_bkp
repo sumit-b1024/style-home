@@ -1,0 +1,132 @@
+@extends('layouts.frontend')
+@section('content')	
+<style>
+.error{
+	color:red;
+}
+</style>
+<?php 
+	use App\Models\ApplyJob;
+	?>
+<section class="banner_inner"><div class="bannerParallax_inner"></div>    </section>
+<section class="designer_cont project_main mb-5">
+    <h4 class="purple">Apply Job for "{{$job_detail->name}}"</h4>
+<div class="container">
+
+				<div class="row">
+				<div class="col-sm-12">
+				<div class="apply_area">
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+				<div class="apply_form">
+				@if(session()->has('success'))
+					<div class="alert alert-success" role="alert">{!!session('success')!!}</div>
+					@endif
+					@if(session()->has('error'))
+					<div class="alert alert-danger" role="alert">{!!session('error')!!}</div>
+					@endif
+				<form action="{{route('frontend.apply.job.post')}}" method="post" enctype="multipart/form-data">
+				@csrf
+				<input type="hidden" name="job_id" value="{{$job_detail->id}}">
+				<div id="main_fields">
+				<h2 class="heading">Apply for this Job</h2>
+				<div class="row mb-3"><label for="inputname" class="col-sm-2 col-form-label">First Name <span class="asterisk" aria-hidden="true">*</span></label>
+				<div class="col-sm-9"><input type="text" name="first_name" value="{{old('first_name')}}" class="form-control" id="inputname"><span class="help-block is-invalid error">{{$errors->first('first_name')}}</span></div>
+				
+				</div>
+				<div class="row mb-3">
+				<label for="inputlastname" class="col-sm-2 col-form-label">Last Name <span class="asterisk" aria-hidden="true">*</span></label>
+				<div class="col-sm-9"><input type="text" name="last_name" value="{{old('last_name')}}" class="form-control" id="inputlastname">
+				<span class="help-block is-invalid error">{{$errors->first('last_name')}}</span>
+				</div>
+				</div>
+				<div class="row mb-3">
+				<label for="inputEmail" class="col-sm-2 col-form-label">Email<span class="asterisk" aria-hidden="true">*</span></label><div class="col-sm-9"><input type="text" name="email" value="{{old('email')}}" class="form-control" id="inputEmail"><span class="help-block is-invalid error">{{$errors->first('email')}}</span></div>
+				</div>
+				<div class="row mb-3"><label for="inputphone" class="col-sm-2 col-form-label">Phone<span class="asterisk" aria-hidden="true">*</span></label>
+				<div class="col-sm-9">
+				<input type="text" name="phone_number" value="{{old('phone_number')}}" class="form-control" id="inputphone"><span class="help-block is-invalid error">{{$errors->first('phone_number')}}</span></div>
+				</div>
+				<div class="row mb-3"><label for="inputphone" class="col-sm-2 col-form-label">Resume/CV<span class="asterisk" aria-hidden="true">*</span></label>
+				<div class="col-sm-9">				<a href="#" class="attached_file">				<label for="file-upload" class="custom-file-upload">Attach</label>				<input name="cv" value="{{old('cv')}}" id="file-upload" type="file">				</a>
+				<!--<a data-source="paste" aria-labelledby="resume" href="#" class="attached_file dropbox">Paste</a>-->
+				<span class="help-block is-invalid error">{{$errors->first('cv')}}</span>
+				</div>
+				</div>
+				<div class="row mb-3">
+				<label for="inputphone" class="col-sm-2 col-form-label">Cover Letter<span class="asterisk" aria-hidden="true">*</span></label>
+				<div class="col-sm-9">
+				<!--<a href="#" class="attached_file"><label for="file-upload" class="custom-file-upload">Attach</label>
+				</a>-->
+				<!--<a data-source="paste" aria-labelledby="resume" href="#" class="attached_file dropbox">Paste</a>-->             			   <label class="custom-file-upload">Attach<input type="file" id="file-upload1" name="cover_letter" value="{{old('cover_letter')}}" ></label>			   			   
+				<span class="help-block is-invalid error">{{$errors->first('cover_letter')}}</span>
+				</div></div>
+				
+				<div class="profile_career">
+				<div class="form-group">
+				<label>LinkedIn Profile<span class="asterisk" aria-hidden="true">&nbsp;*</span></label><input type="text" name="linkedin_profile" id="" value="{{old('linkedin_profile')}}" class="form-control">
+				<span class="help-block is-invalid error">{{$errors->first('linkedin_profile')}}</span>
+				</div>
+				<div class="form-group"><label>Do you or will you require any forms of sponsorship to work legally in the US?<span class="asterisk" aria-hidden="true">&nbsp;*</span></label>
+				<input type="text" name="sponsorship" value="{{old('sponsorship')}}" id="" class="form-control">
+				<span class="help-block is-invalid error">{{$errors->first('sponsorship')}}</span>
+				</div>
+				<div class="form-group"><label>If you are not located in Denver, CO, are you planning to move or open to relocation?<span class="asterisk" aria-hidden="true">&nbsp;*</span></label><input type="text" name="relocation" value="{{old('relocation')}}" id="" class="form-control">
+				<span class="help-block is-invalid error">{{$errors->first('relocation')}}</span>
+				</div>
+				<div class="form-group">
+				<label>What are the three most important things that you'd like your next career opportunity to offer you?<span class="asterisk" aria-hidden="true">&nbsp;*</span></label><textarea name="career_opportunity" id="job_application_answers_attributes_3_text_value" aria-required="true" autocomplete="" class="form-control">{{old('career_opportunity')}}</textarea>
+				<span class="help-block is-invalid error">{{$errors->first('career_opportunity')}}</span>
+				</div>
+				</div>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+				<div class="row mb-3">
+				<label for="inputname" class="col-sm-5 col-form-label">Gender</label>
+				<div class="col-sm-7">
+				<select name="gender" id="job_application_gender" class="form-control"><option value="">Please select</option>
+				@foreach(ApplyJob::getGenders() as $key=>$type)
+				<option value="{{$key}}" {{ old('gender') == $key ? "selected" : "" }}>{{$type}}</option>
+				
+				@endforeach
+				</select>
+				<span class="help-block is-invalid error">{{$errors->first('gemder')}}</span>
+				</div>
+				</div>
+				<div class="row mb-3">
+				<label for="inputname" class="col-sm-5 col-form-label">Are you Hispanic/Latino?</label>
+				<div class="col-sm-7">
+				<select name="hispanic_ethnicity" id="job_application_hispanic_ethnicity" class="form-control">
+				<option value="">Please select</option>
+				<option value="Yes">Yes</option>
+				<option value="No">No</option>
+				<option value="Decline To Self Identify">Decline To Self Identify</option>
+				</select></div>
+				</div>
+				<a target="_blank" href="https://boards.cdn.greenhouse.io/docs/RaceEthnicityDefinitions.pdf"> Race &amp; Ethnicity Definitions</a>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+				<div class="form-group">
+				<label>Veteran Status<span class="asterisk" aria-hidden="true">&nbsp;*</span></label>
+				<input type="text" name="veteran_status" value="{{old('veteran_status')}}" id="" class="form-control">
+				<span class="help-block is-invalid error">{{$errors->first('veteran_status')}}</span>
+				</div>
+				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries,</p>
+				<div class="form-group">
+				<label>Disability Status<span class="asterisk" aria-hidden="true">&nbsp;*</span></label>
+				<select name="disability_status" id="job_application_disability_status" class="form-control">
+				<option value="">Please select</option>
+				@foreach(ApplyJob::getDisabilityStatus() as $key=>$type)
+				<option value="{{$key}}" {{ old('disability_status') == $key ? "selected" : "" }}>{{$type}}</option>
+				@endforeach
+				
+				</select>
+				<span class="help-block is-invalid error">{{$errors->first('disability_status')}}</span>
+				</div>
+				<input type="submit" class="btn-block read_more" name="Submit Application" value="Submit Application"></div>
+				</form>
+				</div>
+				</div>
+				</div>
+				</div>
+				
+				</div>    
+				</section>
+		@endsection

@@ -1,0 +1,163 @@
+@extends('layouts.frontend')
+@section('content')
+<?php 
+use App\Models\FormAnswer;
+use App\Models\QuizCategory;
+?>
+<style>
+.error{
+	color:#ff0000;
+}
+</style>
+<!---<section class="banner_inner">
+    <div class="bannerParallax_inner privacy"></div>
+    </section>-->
+    <section class="designer_cont project_main inner_page_cont tittle_no_banner">
+        <h4>{{$page_title->title}}</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    @if(session()->has('success'))
+		<div class="alert alert-success" role="alert">{!!session('success')!!}</div>
+		@endif
+		@if(session()->has('error'))
+		<div class="alert alert-danger" role="alert">{!!session('error')!!}</div>
+		@endif
+                    <div class="img_style1">
+                        <img src="http://learning.neuronsit.in/style-home/public/img/mystyle1.jpg" alt="style-A-home">
+                        </div>
+                        <div class="customer_form_details1">
+                           <form class="interior_details_form" action="{{route('frontend.detail.form.post')}}"  method="post">
+		                    @csrf
+                               
+                <div class="form-group class1">
+                <p>When would you need this project done?</p>
+                <input type="text" name="project_duration" value="{{old('project_duration')}}" class="form-control">
+                <span class="help-block is-invalid error">{{$errors->first('project_duration')}}</span>
+                </div>
+                <div class="form-group class1"><p>Where are you located? <span class="asterisk" aria-hidden="true">*</span></p>
+                
+                <select id="country" name="country" class="form-control">
+                <option value="">Select Country</option>
+                @if(count($countries)>0)
+                @foreach($countries as $country)
+                <option value="{{$country->id}}" @if( old('country')  == $country->id) selected="selected" @endif>{{$country->name}}</option>
+                @endforeach
+                @endif
+                </select>
+                <span class="help-block is-invalid error">{{$errors->first('country')}}</span>
+                </div>
+                
+                <div class="form-group class1"><p>{{$form_questions[0]['title']}} <span class="asterisk" aria-hidden="true">*</span></p>
+                <select id="country"name="space" class="form-control">
+                <option value="">Select Space</option>
+                <?php
+                $form_answers = FormAnswer::where('status',1)->where('question_id',$form_questions[0]['id'])->get();
+                ?>
+                @if(count($form_answers)>0)
+                @foreach($form_answers as $form_answer)
+                <option value="{{$form_answer->id}}" @if( old('space')  == $form_answer->id) selected="selected" @endif>{{$form_answer->title}}</option>
+                @endforeach
+                @endif
+                
+                 </select>
+                 <span class="help-block is-invalid error">{{$errors->first('space')}}</span>
+                 </div>
+                
+                <div class="form-group class1"><p>{{$form_questions[1]['title']}} <span class="asterisk" aria-hidden="true">*</span></p>
+             <select id="country" name="room" class="form-control">             <option value="">Select Room</option>   
+                <?php
+                $form_answers1 = FormAnswer::where('status',1)->where('question_id',$form_questions[1]['id'])->get();
+                ?>
+                @if(count($form_answers1)>0)
+                @foreach($form_answers1 as $form_answer1)
+                <option value="{{$form_answer1->id}}" @if( old('room')  == $form_answer1->id) selected="selected" @endif>{{$form_answer1->title}}</option>
+                @endforeach
+                @endif
+                 </select>
+                 <span class="help-block is-invalid error">{{$errors->first('room')}}</span>
+                 </div>
+                
+                 <div class="form-group">
+                 <p>Choose Designer <span class="asterisk" aria-hidden="true">*</span></p>
+                 <div class="row">
+                @if(count($designers)>0)
+                @foreach($designers as $designer)
+                 <div class="col-sm-4">
+                <label class="checkcontainer1">
+					<input name="designer" type="radio" value="{{$designer->user_id}}" class="colorinput-input">
+					<div class="style_box colorinput-color ">
+					<a target="_blank" href="{{route('frontend.designer.bio',['model'=>$designer->user_id])}}">
+					    @if($designer->profile_image)
+					    <div class="img_box"><img src="{{$designer->getProfileImage()}}" alt="Designer"></div>
+					    @else
+					    <div class="img_box"><img src="{{asset("public/images/member_nopic.png")}}" alt="Designer"></div>
+					    @endif
+						<span class="bg-azure">{{$designer->first_name}} {{$designer->last_name}}</span></a>
+						@if($designer->bio_type)
+						@php
+						$type = [];
+						$bio_ids= explode(",",$designer->bio_type);
+						$bio_types = QuizCategory::where('status',1)->whereIn('id',$bio_ids)->get();
+						@endphp
+						@if(count($bio_types)>0)
+						@foreach($bio_types as $bio_type)
+						@php
+						$type[] = $bio_type->title;
+						@endphp
+						@endforeach
+						@endif
+						<span class="bg-azure">({{implode(",",$type)}})</span>
+						@endif
+						</div>
+						<span class="checkmark"></span>
+				</label>
+                 </div> 
+                @endforeach
+                @endif
+                 
+                 </div>
+                  <span class="help-block is-invalid error">{{$errors->first('designer')}}</span>
+                 </div>
+                
+                <div class="form-group">
+                 @if($customer_temp5->subscription)
+                <input type="hidden" name="subscription" value="{{$customer_temp5->subscription}}">
+                @else
+                 <p>Subscription Plan <span class="asterisk" aria-hidden="true">*</span></p>
+                 <div class="row">
+                
+                @if(count($subscriptions)>0)
+                @foreach($subscriptions as $subscription)
+                 <div class="col-sm-4">
+                <label class="checkcontainer2">
+					<input name="subscription" type="radio" value="{{$subscription->id}}" class="colorinput-input">
+					<div class="style_box colorinput-color choose_box">
+					<h3>{{$subscription->title}}</h3>
+					<span class="price"><span>$</span> {{$subscription->fee_amount}}</span>
+					{!!@optional($subscription)->facilities!!}
+					</div>
+					<span class="checkmark"></span>
+				</label>
+                 </div>
+                @endforeach
+                @endif
+
+                 </div>
+                 @endif
+                  <span class="help-block is-invalid error">{{$errors->first('subscription')}}</span>
+                 </div>
+                 
+                  <button type="submit" class="btn btn-primary mb-2 style_submit">Submit</button>
+         </form>			
+         </div>			
+ </div>                                  
+ </div>        
+ </div>  
+ @extends('layouts.modal')
+ </section>   
+
+
+
+
+ @endsection

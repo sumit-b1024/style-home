@@ -1,0 +1,88 @@
+@extends('layouts.frontend')
+@section('content')
+<?php 
+use App\Models\FormAnswer;
+use App\Models\QuizCategory;
+use App\Models\SubscriptionAddon;
+?>
+
+<section class="section-pagetop bg-dark" style="margin-top: 100px;">
+        <div class="container clearfix">
+            <h2 class="title-page">Checkout</h2>
+			<div class="pull-right"><a class="btn btn-warning" href="{{route('frontend.detail.form')}}">Back <i class="fa fa-arrow-circle-left"></i></a></div>
+        </div>
+    </section>
+    <section class="section-content bg padding-y">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    @if (Session::has('error'))
+                        <p class="alert alert-danger">{{ Session::get('error') }}</p>
+                    @endif
+                </div>
+            </div>
+            <form action="{!! URL::route('paypal') !!}" method="POST" role="form">
+                @csrf
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <h4 class="card-header">Subscription Detail</h4>
+                            <article class="card-body">
+                                <div class="form-group">
+                                        <p><b>Subscription Plan: </b> {{$detail_form_latest->subscription_title}}</p>
+                                    
+                                </div>
+								@if(@$detail_form_latest->addons)
+                                <div class="form-group">
+								@php
+								$addons2 = [];
+								$addons = $detail_form_latest->addons;
+								
+								$addons1 = explode(",",$addons);
+								$subscription_addons = SubscriptionAddon::whereIn('id',$addons1)->get();
+								if(count($subscription_addons)>0){
+								foreach($subscription_addons as $subscription_addon){
+									$addons2[] = $subscription_addon->title;
+								}
+								}
+								$addons3 = implode(",",$addons2);
+								@endphp
+                                    <p><b>Addons : </b> {{$addons3}}</p>
+                                </div>
+                                @endif
+                                
+                               
+                            </article>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    
+                                        <h4 class="card-header">Your Order</h4>
+                                    
+                                    <article class="card-body">
+                                        <dl class="dlist-align">
+                                            <dt>Total cost: </dt>
+                                            <dd class="text-right h5 b"> {{$detail_form_latest->amount}} </dd>
+											<dt>Plan cost: </dt>
+                                            <dd class="text-right h5 b"> {{$detail_form_latest->fee_amount}} </dd>
+											<dt>Addons cost: </dt>
+                                            <dd class="text-right h5 b"> {{$detail_form_latest->amount-$detail_form_latest->fee_amount}} </dd>
+                                        </dl>
+                                    </article>
+                                </div>
+                            </div>
+							<input type="hidden" name="detail_form_id" value="{{$detail_form_latest->id}}">
+							
+                            <div class="col-md-12 mt-4">
+                                <button type="submit" class="subscribe btn btn-success btn-lg btn-block">Proceed To Pay</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+ @endsection
