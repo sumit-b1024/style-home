@@ -29,6 +29,14 @@ class Product extends Model
         return $this->hasMany(AddToCart::class, 'product_id');
     }
 
+
+        public function cartCurrentUser()
+    {
+        return $this->hasOne(AddToCart::class, 'product_id')->where("user_id",@auth()->user()->id);
+    }
+
+
+
     public function getRoomTypesAttribute()
     {
         if (!$this->relationLoaded('roomtypes')) {
@@ -148,4 +156,13 @@ class Product extends Model
     {
         return $this->hasMany(ProductDocument::class, 'product_id');
     }
+
+       public function product_document()
+    {
+        return $this->hasOne(ProductDocument::class, 'product_id')->orderBy('id', 'desc')->limit(1);
+
+    }
+
+
+
 }

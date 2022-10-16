@@ -85,14 +85,8 @@
                                             </ul>
 
                                         </div>
-                                        <div class="pro_sect2">
-                                            <h3>Designed By</h3>
-                                            <ul>
-                                                <li>Designer: XXX</li>
-                                                <li>Profile Image: XXX</li>
-                                            </ul>
 
-                                        </div>
+                                     
 
 
                                     </div>

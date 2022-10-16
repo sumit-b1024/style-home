@@ -50,6 +50,7 @@ class ProductAdminController extends Controller
         $filter_groups = FilterGroup::all();
         $filterproducts = FilterProduct::where('product_id', $product->id)->get();
         $filter_groupitems = FilterGroupItem::whereIn('filter_group_id', $filterproducts->pluck('filter_group_id'))->get();
+        
         // dd($filter_groupitems);
         return view('admin.product.update', compact('user', 'room_types', 'style_types', 'room_layouts', 'countries', 'product', 'product_images', 'styletypes', 'roomtypes', 'roomlayouts', 'filter_groups', 'filterproducts', 'filter_groupitems'));
     }

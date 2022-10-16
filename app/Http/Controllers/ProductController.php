@@ -81,6 +81,7 @@ class ProductController extends Controller
         $products = Product::with(['product_images' => function ($q) {
             $q->first();
         }])->get();
+        
         $html = view('frontend.productlist', compact('products'))->render();
         return response()->json(['html' => $html]);
     }

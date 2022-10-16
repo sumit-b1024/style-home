@@ -9,6 +9,7 @@ use App\Models\DetailForm;
 use App\Models\CustomerQuiz;
 use App\Models\FormQuestion;
 use App\Models\ProjectUpdate;
+use App\Models\PurchaseProduct;
 use Session;
 use Mail;
 
@@ -30,6 +31,8 @@ class ProjectController extends Controller
             ->join('customer_quizzes', 'customer_quizzes.id', 'detail_forms.quiz_id')
             ->join('users', 'users.id', 'detail_forms.designer')->leftjoin('quiz_categories', 'quiz_categories.id', 'customer_quizzes.answer_category')->leftjoin('subscriptions', 'subscriptions.id', 'detail_forms.subscription')->leftjoin('countries', 'countries.id', 'detail_forms.country')->leftjoin('form_answers', 'form_answers.id', 'detail_forms.space')
             ->where("project_details.id", $project_id)->where("project_details.status",1)->first();
+                $purchaseProducts= PurchaseProduct::where('quiz_id',$project->quizId)->get();
+                dd($purchaseProducts);
             $form_questions = FormQuestion::where('status',1)->get()->toArray();
         if(!empty($project)){
         return view('admin.project-update.customer_project_view')->with('project',$project)->with('form_questions',$form_questions) ;
