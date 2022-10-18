@@ -8,7 +8,7 @@ use App\Models\ProjectDetail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-
+    
 class User extends Authenticatable
 {
     const ROLE_ADMIN=1 ;
@@ -58,6 +58,11 @@ class User extends Authenticatable
     {
     }
 
+
+    public function getFullName() 
+    {
+        return $this->first_name." ".$this->last_name ; 
+    }
     public function payment_requests() {
         return $this->hasMany( PaymentRequest::class, 'user_id' );
     }
@@ -69,6 +74,13 @@ class User extends Authenticatable
     public function designers() {
         return $this->hasMany( Designer::class, 'user_id' );
     }
+
+    public function designer() {
+        return $this->hasOne( Designer::class, 'user_id' );
+    }
+
+
+
 
     public function addtocarts(){
         return $this->hasMany(AddToCart::class,'user_id');

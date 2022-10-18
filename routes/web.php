@@ -380,6 +380,12 @@ Route::namespace('Admin')->prefix("admin")->group(function () {
 			Route::get('customer-project/view/{project}', 'ProjectController@customer_project_view')->name('admin.customer.project.view');
 			Route::get('customer-project/updates/{project}', 'ProjectController@customer_project_update')->name('admin.customer.project.update');
 
+
+			Route::get('customer-project/reassign/{projectDetail}', 'ProjectController@reassign')->name('admin.customer.project.reassign');
+
+
+			Route::get('customer-project/reassign/{projectDetail}/{user}', 'ProjectController@reassignConfirm')->name('admin.customer.project.update.reassign');
+
 		//Testimonial
 		Route::get('/testimonial', 'TestimonialController@index')->name('admin.testimonial');
 		Route::get('testimonial/add', 'TestimonialController@add')->name('admin.testimonial.add');

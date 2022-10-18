@@ -2,7 +2,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\User ; 
 class DetailForm extends Model
 {
 
@@ -23,5 +23,10 @@ class DetailForm extends Model
         'grand_total',
     ];
 
+
+    public function designerUser() 
+    {
+        return $this->belongsTo( User::class, 'designer' );
+    }
 
 }

@@ -3,7 +3,7 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\DetailForm;
 class ProjectDetail extends Model
 {
 
@@ -32,4 +32,10 @@ class ProjectDetail extends Model
     public function payment_requests() {
         return $this->hasOne( PaymentRequest::class, 'project_detail_id' );
     }
+
+       public function detailForm() {
+        return $this->belongsTo( DetailForm::class,'detail_form_id', 'id'  );
+    }
+
+
 }
