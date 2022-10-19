@@ -41,6 +41,12 @@ return view('admin.project-update.reassign')->with('designers',$designers)->with
           $projectDetail->detailForm->designer=$user->id ; 
             $projectDetail->detailForm->save();
 
+              \Mail::send('emails.reapplied_notify', ['user' => $user, 'projectDetail' => $projectDetail  ], function ($m) use ($user) {
+                $m->from('styleahome01@gmail.com', env('APP_NAME'));
+                $m->to($user->email, $user->first_name)->subject(__('New project (reassigned)'));
+            });
+
+
      return redirect()->back()->withSuccess(__('Designer '.$user->getFullName().' assigned Successfuly'));
 
 
