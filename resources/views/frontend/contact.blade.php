@@ -103,7 +103,7 @@
                     <h2>
                         Learn more about our Design packages
                     </h2>
-                    <button class="btn btn-secondary brown_btn pl-5 pr-5" id="contactreadmore">Read more</button>
+                    <a class="btn btn-secondary brown_btn pl-5 pr-5" href="{{route('frontend.home').'#pricing'}}" id=" ">Read more</a>
                     <p id="readmore_contact" style="display: none;" class="text-white"> Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nobis, ipsa repellendus repellat quam perferendis architecto iure tempore. Rem quos vel ratione porro aut tenetur. Vero atque est rem reiciendis.</p>
                 </div>
             </div>

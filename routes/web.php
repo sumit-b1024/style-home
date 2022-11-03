@@ -80,6 +80,12 @@ Route::middleware("frontend_basic")->group(function (){
 	Route::get('/footer-menu/{slug}', 'HomeController@footer_menu')->name('frontend.footer.menu');
 	Route::get('/checkout',"UserController@checkout")->name('frontend.subscription.checkout');
 	Route::get('/product-checkout',"UserController@productCheckout")->name('frontend.product.checkout');
+
+	Route::get('/payment',"UserController@payment")->name('frontend.product.payment');
+
+Route::post('/purchase', 'UserController@purchase')->name('frontend.purchase');
+
+
 	Route::post('/check_promocode',"UserController@checkPromocode")->name('frontend.subscription.check_promocode');
 
 	Route::get('/products',"ProductController@index")->name('frontend.product.index');

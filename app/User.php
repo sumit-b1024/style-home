@@ -8,6 +8,7 @@ use App\Models\ProjectDetail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Cashier\Billable;
     
 class User extends Authenticatable
 {
@@ -15,7 +16,7 @@ class User extends Authenticatable
 	const ROLE_CUSTOMER=2 ;
 	const ROLE_DESIGNER=3 ;
     use Notifiable;
-
+    use Billable;
     /**
      * The attributes that are mass assignable.
      *
