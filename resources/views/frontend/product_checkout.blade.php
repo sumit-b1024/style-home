@@ -28,8 +28,7 @@
                     @endif
                 </div>
             </div>
-            <form action="{!! URL::route('product.paypal') !!}" method="POST" role="form">
-                @csrf
+          
                 <div class="row">
                     <div class="col-md-7">
                         <div class="card">
@@ -136,6 +135,8 @@
                                     </div>
                                 </div>
                             </div>
+                              <form action="{!! URL::route('product.paypal') !!}" method="POST" role="form">
+                @csrf
                             <input type="hidden" name="user_id" value="{{$user_id}}">
                             <div class="col-md-12">
 
@@ -147,11 +148,28 @@
                                     <img src="public/img/paypal_bt.png">
 
                                 </button>
+
+
+
+
+
                             </div>
+                               </form>
+
+
+                                <a  href="{{route('frontend.product.payment-product')}}"  class="subscribe btn btn-success btn-lg btn-block">
+                                    <!--<img src="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_m.png" alt="Pay with PayPal" />-->
+                                    <img src="public/images/card.png">
+
+                                </a>
+
+
+
+
                         </div>
                     </div>
                 </div>
-            </form>
+         
         </div>
     </section>
 @endsection

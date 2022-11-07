@@ -28,8 +28,7 @@
                     @endif
                 </div>
             </div>
-            <form action="{!! URL::route('paypal') !!}" method="POST" role="form">
-                @csrf
+            
                 <div class="row">
                     <div class="col-md-7">
                         <div class="card">
@@ -137,22 +136,42 @@
                                     </div>
                                 </div>
                             </div>
-                            <input type="hidden" name="detail_form_id" value="{{ $detail_form_latest->id }}" id="detail_form_id">
+                      
                             <div class="col-md-12">
 
                             </div>
 
                             <div class="col-md-12 mt-4">
+                                <form action="{!! URL::route('paypal') !!}" method="POST" role="form">
+                                @csrf
+
+                                       <input type="hidden" name="detail_form_id" value="{{ $detail_form_latest->id }}" id="detail_form_id">   
                                 <button type="submit" class="subscribe btn btn-success btn-lg btn-block">
                                     <!--<img src="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_m.png" alt="Pay with PayPal" />-->
                                     <img src="public/img/paypal_bt.png">
 
                                 </button>
+                                     </form>
+
+
+                                       <form action="{!! URL::route('frontend.product.payment') !!}" method="POST" role="form">
+                                @csrf
+
+                                       <input type="hidden" name="detail_form_id" value="{{ $detail_form_latest->id }}" id="detail_form_id">   
+                                <button type="submit" class="subscribe btn btn-success btn-lg btn-block">
+                                    <!--<img src="https://www.paypalobjects.com/webstatic/en_AU/i/buttons/btn_paywith_primary_m.png" alt="Pay with PayPal" />-->
+                                    <img src="public/images/card.png">
+
+                                </button>
+                                     </form>
+
+
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </form>
+       
         </div>
     </section>
     <script>

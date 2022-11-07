@@ -81,9 +81,10 @@ Route::middleware("frontend_basic")->group(function (){
 	Route::get('/checkout',"UserController@checkout")->name('frontend.subscription.checkout');
 	Route::get('/product-checkout',"UserController@productCheckout")->name('frontend.product.checkout');
 
-	Route::get('/payment',"UserController@payment")->name('frontend.product.payment');
-
-Route::post('/purchase', 'UserController@purchase')->name('frontend.purchase');
+	Route::get('/payment-product',"UserController@paymentProduct")->name('frontend.product.payment-product');
+	Route::post('/payment',"UserController@payment")->name('frontend.product.payment');
+Route::post('/purchase', 'PaypalController@postPaymentWithStripe')->name('frontend.purchase');
+Route::post('/purchase-product', 'PaypalController@postPaymentWithStripeProduct')->name('frontend.purchase-product');
 
 
 	Route::post('/check_promocode',"UserController@checkPromocode")->name('frontend.subscription.check_promocode');
@@ -104,6 +105,7 @@ Route::post('/purchase', 'UserController@purchase')->name('frontend.purchase');
 
 });
 Route::post('paypal', array('as' => 'paypal','uses' => 'PaypalController@postPaymentWithpaypal',));
+Route::post('stripe', array('as' => 'stripe','uses' => 'PaypalController@postPaymentWithstripe',));
 Route::post('product-paypal', array('as' => 'product.paypal','uses' => 'PaypalController@postPaymentWithpaypalProduct'));
 Route::get('paypal', array('as' => 'status','uses' => 'PaypalController@getPaymentStatus',))->name('paypal');
 // routing for designer

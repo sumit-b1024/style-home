@@ -36,10 +36,9 @@
     <div class="col-md-4">
     </div>
     <div class="col-md-8 ">
-    <form method="POST" action="{{route('frontend.purchase')}}" class="card-form mt-3 mb-3">
+    <form method="POST" action="{{route('frontend.purchase-product')}}" class="card-form mt-3 mb-3">
     @csrf
-    <input type="hidden" name="payment_method" class="payment-method"> 
-     <input type="hidden" name="detail_form_id" value="{{$detailFormId}}"  > 
+    <input type="hidden" name="payment_method" class="payment-method">
     <input class="StripeElement mb-3" name="card_holder_name" placeholder="Card holder name" required>
     <div class="col-lg-4 col-md-6">
         <div id="card-element"></div>
