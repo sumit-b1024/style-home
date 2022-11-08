@@ -13,6 +13,20 @@ class AddToCart extends Model
         'quiz_id',
     ];
 
+
+
+    
+    public function scopeCurrentCart($query)
+    {
+        return $query->where('user_id', auth()->user()->id);
+    }
+ 
+
+    public static function getAll() 
+    {
+
+    }
+
     public function products(){
         return $this->belongsTo(Product::class,'product_id');
     }

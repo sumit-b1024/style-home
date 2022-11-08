@@ -15,7 +15,7 @@
 						<th scope="col">#</th>
 						<th scope="col">{{__('Request Title')}}</th>
 						<th scope="col">{{__('Request Message')}}</th>
-
+						<th scope="col">{{__('Project Name')}}</th>
         				<th scope="col">{{__('Customer Name')}}</th>
         				<th scope="col">{{__('Designer Name')}}</th>
         				<th scope="col">{{__('Posted On')}}</th>
@@ -32,6 +32,7 @@
 						<th class="align-middle" scope="row">{{$loop->iteration}}</th>
 						<td class="align-middle">{{$model->title}}</td>
 						<td class="align-middle">{!!$model->message!!}</td>
+						<td class="align-middle">{!!@$model->project_details->title!!}</td>
 						<td class="align-middle">@isset($model->project_details->users->first_name){!!$model->project_details->users->first_name!!} @endisset @isset($model->project_details->users->last_name)
 							{!!$model->project_details->users->last_name!!}
 						@endisset</td>

@@ -27,6 +27,56 @@ use App\Models\AddToCart;
 
 class UserController extends Controller
 {
+
+
+public function purchase(Request $request )
+{
+    $user          = $request->user();
+    $paymentMethod = $request->input('payment_method');
+    $bla = AddToCart::currentCart()->get()  ;  
+    $total_price=0;
+        foreach (AddToCart::currentCart()->get() as $key => $cart)
+        {
+ 
+        $total_price += $cart->products->price;
+        }
+                                           
+    try {
+
+        $user->createOrGetStripeCustomer();
+        $user->updateDefaultPaymentMethod($paymentMethod);
+      $response =   $user->charge( $total_price*100, $paymentMethod);  
+      $transactionId=($response->id);       
+    } catch (\Exception $e) {
+        echo  $e->getMessage() ; die() ; 
+        return back()->with('error', $e->getMessage());
+    }
+  //  AddToCar
+    return back()->with('message', 'Product purchased successfully!');
+}
+
+
+    public function paymentProduct() 
+    {
+
+                $intent = auth()->user()->createSetupIntent();
+
+          return view("frontend.product.payment-product",compact(  'intent'));
+       
+    }
+
+        public function payment () 
+    {
+
+                $intent = auth()->user()->createSetupIntent();
+                $detailFormId=request()->get('detail_form_id');
+            
+          return view("frontend.product.payment",compact(  'intent','detailFormId'));
+       
+    }
+
+
+
     public function login(Request $request)
     {
         $request->validate([

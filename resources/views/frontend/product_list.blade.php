@@ -210,71 +210,10 @@
                             </div>
 
                             <div id="products">
-                                {{-- <div class="row mx-0"> --}}
+                                
 
-                                {{-- <div class="col-md-4 col-sm-6">
-                            <div class="card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
-                                    <div class="inner">
-                                        <div class="main-img"><img
-                                                src="https://images.havenly.com/unsafe/fit-in/688x/filters:quality(100)/https://static.havenly.com/product/production/sha256_8a24f1e6d0a29bf8aac80fdc87d1f60fae72a789d5a3cf104b64dce9af217d9a.jpeg"
-                                                alt="Category"></div>
-
-                                    </div>
-                                </a>
-                                <div class="card-body text-center">
-                                    <h4 class="card-title">Hargrove Dune 48 Inch Entry Console Table</h4>
-                                    <p class="text-muted">$499</p><a class="btn btn-outline-primary btn-sm pro_bt"
-                                        href="{{ route('frontend.product.product_details') }}" data-abc="true">View Products</a>
-                                </div>
-                            </div>
-                        </div> --}}
-                                {{-- <div class="col-md-4 col-sm-6">
-                            <div class="card mb-30"><a class="card-img-tiles" href="#" data-abc="true">
-                                    <div class="inner">
-                                        <div class="main-img"><img
-                                                src="https://images.havenly.com/unsafe/fit-in/688x/filters:quality(100)/https://static.havenly.com/product/production/sha256_8a24f1e6d0a29bf8aac80fdc87d1f60fae72a789d5a3cf104b64dce9af217d9a.jpeg"
-                                                alt="Category"></div>
-
-                                    </div>
-                                </a>
-                                <div class="card-body text-center">
-                                    <h4 class="card-title">Hargrove Dune 48 Inch Entry Console Table</h4>
-                                    <p class="text-muted">$499</p><a class="btn btn-outline-primary btn-sm pro_bt"
-                                        href="{{ route('frontend.product.product_details') }}" data-abc="true">View Products</a>
-                                </div>
-                            </div>
-                        </div> --}}
-                                {{-- @forelse ($products as $product)
-                                        <div class="col-md-4 col-sm-6">
-                                            <div class="card mb-30"><a class="card-img-tiles" href="#"
-                                                    data-abc="true">
-                                                    <div class="inner">
-                                                        <div class="main-img"><img
-                                                                src="{{ asset('public/product') . '/' . $product->product_images()->first()->image }}"
-                                                                width="225" height="225" alt="product image"></div>
-
-                                                    </div>
-                                                </a>
-                                                <div class="card-body text-center">
-                                                    <h4 class="card-title">{{ $product->title }}</h4>
-                                                    <p class="text-muted">${{ $product->price }}</p><a
-                                                        class="btn btn-outline-primary btn-sm pro_bt"
-                                                        href="{{ route('frontend.product.product_details', $product->id) }}"
-                                                        data-abc="true">View
-                                                        Products</a>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    @empty
-                                        <div class="col-xl-12 col-md-4 col-sm-6 text-center">
-                                            <div class="card mb-30">
-                                                <h1>No List Found</h1>
-                                            </div>
-                                        </div>
-                                    @endforelse
-
-                                </div> --}}
+                               
+                                
                             </div>
 
                         </div>
@@ -347,6 +286,52 @@
 
         });
     </script>
+
+
+<script> 
+$(document).on('click','#addtocart',function(){
+          let product_id = $(this).attr("product-id");
+            let user_id = {{ auth()->user()->id }};
+            let url = "{{ route('frontend.product.addtocart') }}"
+            $.ajax({
+                url: url,
+                type: "post",
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'user_id': user_id,
+                    'product_id': product_id,
+                },
+                success: function(response) {
+                    window.location.reload();
+                },
+            });
+});
+
+$(document).on('click','#added',function(){
+           let product_id =  $(this).attr("product-id");
+            let user_id = {{ auth()->user()->id }};
+            let url = "{{ route('frontend.product.removetocart') }}"
+            $.ajax({
+                url: url,
+                type: "post",
+                data: {
+                    '_token': '{{ csrf_token() }}',
+                    'user_id': user_id,
+                    'product_id': product_id,
+                },
+                success: function(response) {
+                    window.location.reload();
+                },
+            });
+});
+
+        
+      
+</script>
+ 
+
+
+
     <script>
         $(document).ready(function() {
             $(".dropdown-menu").click(function() {
@@ -359,6 +344,8 @@
         $(document).ready(function() {
             getProducts();
         });
+
+
 
         function getProducts() {
             $("#products").html('');

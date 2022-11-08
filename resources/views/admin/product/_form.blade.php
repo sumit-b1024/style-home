@@ -17,9 +17,10 @@
 
     </div>
 
-    {{-- <div class="form-group">
+    {{-- <div class="form-group">fff
         @isset($product)
             <img src="{{asset("public/uploads/product/{$product->document}")}}" width="150px" />
+           
         @endisset
         <label for="file-input" class=" form-control-label">Product document</label>
         <input name="document" type="file" id="document" name="document" class="form-control-file"
@@ -33,7 +34,9 @@
             accept=".doc,.docx,application/msword,image/*" multiple>
         <span class="help-block is-invalid text-danger">{{ $errors->first('document') }}</span>
     </div>
-
+     @if( isset($product) && file_exists("public/product_document/".@$product->product_document->document_name))
+ <a class="btn btn-link" href="{{url("public/product_document/".@$product->product_document->document_name)}}">Download Document</a>
+  @endif
     <div class="form-group">
         <label for="price" class=" form-control-label">{{ __('Price') }}</label>
 

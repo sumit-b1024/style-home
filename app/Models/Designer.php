@@ -3,7 +3,7 @@ namespace App\Models;
 
 use App\User;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Models\StyleType;
 class Designer extends Model
 {
     const TYPE_MALE=1;
@@ -86,5 +86,18 @@ class Designer extends Model
 
     public function users() {
         return $this->belongsTo( User::class, 'user_id' );
+    }
+
+    public function getBioTypeArr() 
+    {
+        return explode(",",$this->bio_type); 
+    }
+    public function getStyles() 
+    {
+        
+        $styles=StyleType::whereIn("id",$this->getBioTypeArr())->pluck("name")->toArray();
+ 
+        return implode(", ",$styles);
+
     }
 }

@@ -2,7 +2,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\User ; 
+use App\Models\Subscription;
 class DetailForm extends Model
 {
 
@@ -22,6 +23,21 @@ class DetailForm extends Model
         'promocode_amount',
         'grand_total',
     ];
+
+
+    public function designerUser() 
+    {
+        return $this->belongsTo( User::class, 'designer' );
+    }
+
+            public function getSubscription()
+    {
+        return $this->hasOne(Subscription::class, 'id','subscription');
+    }
+
+
+
+
 
 
 }

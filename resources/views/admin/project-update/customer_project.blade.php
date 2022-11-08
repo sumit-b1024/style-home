@@ -17,6 +17,7 @@ use App\Models\ProjectUpdate;
 						<th scope="col">#</th>
 						<th scope="col">{{__('Project Title')}}</th>
 						<th scope="col">{{__('Customer Name')}}</th>
+						<th scope="col">{{__('Email')}}</th>
 						<th scope="col">{{__('Designer Name')}}</th>
 
 						<th scope="col">{{__('Image')}}</th>
@@ -31,7 +32,9 @@ use App\Models\ProjectUpdate;
 					<tr>
 						<th class="align-middle" scope="row">{{$loop->iteration}}</th>
 						<td class="align-middle">{{$model->title}}</td>
+
 						<td class="align-middle">{{$model->cust_firstname}} {{$model->cust_lastname}}</td>
+						<td class="align-middle">{{$model->cust_email}}</td>
 						<td class="align-middle">{{$model->first_name}} {{$model->last_name}}</td>
 
 						<td class="align-middle">@if($model->room_picture)
@@ -56,6 +59,11 @@ use App\Models\ProjectUpdate;
 						@if(count($project_updates)>0)
 						<a href="{{route('admin.customer.project.update',['project'=>$model->id])}}" class="btn btn-primary">view updates</a>
 						@endif
+
+							<a href="{{route('admin.customer.project.reassign',['projectDetail'=>$model->id])}}" class="btn btn-warning">Reassign</a>
+
+
+
 						</td>
 					</tr>
 

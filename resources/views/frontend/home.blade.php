@@ -715,14 +715,13 @@
                                             </div>
                                             <h3>{{ $subscription->title }} </h3>
                                             <p>20 Minute Consulation Call with </p>
-                                            <span class="size">Size : {{ $subscription->size }}</span>
+                                           
                                             {!! @optional($subscription)->facilities !!}
                                             <!-- <button class="mt-3 brown_btn d-block">Get Started</button>-->
                                             <button class="mt-3 brown_btn d-block" type="button" data-toggle="modal"
                                                 data-target="#myModal" onclick="test('{{ $subscription->id }}')">Get
                                                 Started</button>
-                                            <button type="button" class="addons_bt" data-toggle="collapse"
-                                                data-target="#demo{{ $i }}">Addons</button>
+                                      
                                             <div id="demo{{ $i }}" class="collapse">
                                                 <form class="profile price_list">
                                                     @php
